@@ -5,12 +5,12 @@
 #define MAX_FILES 100
 #define MAX_FILENAME_LENGTH 50
 
-// Structure to represent a file
+
 typedef struct {
     char name[MAX_FILENAME_LENGTH];
 } File;
 
-// Function prototypes
+
 void initializeFiles(File files[]);
 void createFile(File files[], int *numFiles);
 void deleteFile(File files[], int *numFiles);
@@ -20,8 +20,6 @@ int main() {
     File files[MAX_FILES];
     int numFiles = 0;
     char choice;
-
-    // Initialize files array
     initializeFiles(files);
 
     do {
@@ -53,29 +51,21 @@ int main() {
 
     return 0;
 }
-
-// Initialize files array
 void initializeFiles(File files[]) {
     for (int i = 0; i < MAX_FILES; i++) {
         strcpy(files[i].name, "");
     }
 }
-
-// Create a file
 void createFile(File files[], int *numFiles) {
     char filename[MAX_FILENAME_LENGTH];
     printf("Enter filename: ");
     scanf("%s", filename);
-
-    // Check if filename already exists
     for (int i = 0; i < *numFiles; i++) {
         if (strcmp(files[i].name, filename) == 0) {
             printf("File '%s' already exists.\n", filename);
             return;
         }
     }
-
-    // Check if maximum number of files reached
     if (*numFiles >= MAX_FILES) {
         printf("Maximum number of files reached. Cannot create more files.\n");
         return;
@@ -85,8 +75,6 @@ void createFile(File files[], int *numFiles) {
     (*numFiles)++;
     printf("File '%s' created successfully.\n", filename);
 }
-
-// Delete a file
 void deleteFile(File files[], int *numFiles) {
     char filename[MAX_FILENAME_LENGTH];
     printf("Enter filename to delete: ");
@@ -95,7 +83,6 @@ void deleteFile(File files[], int *numFiles) {
     int found = 0;
     for (int i = 0; i < *numFiles; i++) {
         if (strcmp(files[i].name, filename) == 0) {
-            // Shift remaining files to fill the gap
             for (int j = i; j < *numFiles - 1; j++) {
                 strcpy(files[j].name, files[j + 1].name);
             }
@@ -111,8 +98,6 @@ void deleteFile(File files[], int *numFiles) {
         printf("File '%s' not found.\n", filename);
     }
 }
-
-// List files
 void listFiles(File files[], int numFiles) {
     if (numFiles == 0) {
         printf("No files found.\n");
