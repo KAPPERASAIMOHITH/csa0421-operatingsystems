@@ -1,13 +1,7 @@
 #include <stdio.h>
 
 typedef struct {
-    int pid;
-    int burst_time;
-    int remaining_time;
-    int priority;
-    int arrival_time;
-    int wait_time;
-    int turn_around_time;
+    int pid, burst_time, remaining_time, priority, arrival_time, wait_time, turn_around_time;
 } Process;
 
 void calculateTimes(Process processes[], int n) {
@@ -20,15 +14,14 @@ void calculateTimes(Process processes[], int n) {
                 shortest = j;
             }
         }
-        if (shortest!= -1) {
+        if (shortest != -1) {
             processes[shortest].remaining_time--;
             if (processes[shortest].remaining_time == 0) {
                 complete++;
                 int finish_time = time + 1;
                 processes[shortest].wait_time = finish_time - processes[shortest].burst_time - processes[shortest].arrival_time;
                 processes[shortest].turn_around_time = finish_time - processes[shortest].arrival_time;
-                if (processes[shortest].wait_time < 0)
-                    processes[shortest].wait_time = 0;
+                if (processes[shortest].wait_time < 0) processes[shortest].wait_time = 0;
             }
         }
         time++;
@@ -62,3 +55,4 @@ int main() {
     printAverageTimes(processes, n);
     return 0;
 }
+
